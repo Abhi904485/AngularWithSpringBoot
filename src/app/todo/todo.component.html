@@ -1,0 +1,20 @@
+<div class="container">
+  <form>
+    <fieldset class="form-group">
+      <label for="description">Description</label>
+      <input class="form-control" type="text" name="Description" id="description" [(ngModel)]="todo.description" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label for="targetDate">Date</label>
+      <input class="form-control" type="date" name="targetDate" id="targetDate" [ngModel]="todo.targetDate | date:'yyyy-MM-dd'"
+             (ngModelChange)="todo.targetDate=$event" required="required">
+    </fieldset>
+
+    <fieldset class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="todoDone" name="todoDone" [(ngModel)]="todo.todoDone">
+      <label class="form-check-label" for="todoDone">Done</label>
+    </fieldset>
+    <button class="btn btn-success" type="button" (click)="updateOrAddTodo(todo.id, todo)">Save</button>
+  </form>
+</div>
