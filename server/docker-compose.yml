@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+  microservice-1:
+    image: todo:latest
+    command: java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=n -jar /server/target/todo-0.0.1-SNAPSHOT.jar
+#    command: mvn spring-boot:run -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+    volumes:
+      - /Users/akumars1/Downloads/Spring_Projects/AngularWithSpringBoot/server:/server
+      - /Users/akumars1/.m2:/var/maven/.m2
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    expose:
+      - "8080"
+      - "5005"
+    restart: unless-stopped
+    container_name: microservice-1
+
+
+  microservice-2:
+    image: simple:latest
+    command: java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=5006,suspend=n -jar /simple-rest-apis/target/simple-rest-apis-0.0.1-SNAPSHOT.jar
+#    command:  mvn spring-boot:run -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006
+    volumes:
+      - /Users/akumars1/Downloads/Spring_Projects/simple-rest-apis:/simple-rest-apis
+      - /Users/akumars1/.m2:/var/maven/.m2
+    ports:
+      - "8083:8083"
+      - "5006:5006"
+    expose:
+      - "8083"
+      - "5006"
+    restart: unless-stopped
+    container_name: microservice-2
+
+
+
