@@ -1,11 +1,13 @@
 package com.rest.todo.controller;
 
+import com.rest.todo.model.SampleResponse;
 import com.rest.todo.model.ToDo;
 import com.rest.todo.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,14 @@ public class ToDoController {
   public ToDo updateTodo(@PathVariable String username, @PathVariable String id, @RequestBody ToDo toDo) {
     return toDoService.updateTodo(toDo);
   }
+
+  @GetMapping("/users/hello")
+  @ResponseStatus(value = HttpStatus.ACCEPTED)
+  public SampleResponse hello(){
+    RestTemplate restTemplate = new RestTemplate();
+    return restTemplate.getForObject("http://192.168.112.2:8083/sample", SampleResponse.class);
+  }
+
 
 
 }
